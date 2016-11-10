@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -65,7 +66,7 @@ public class RestClientResponse implements IRestClientResult {
 	
 	public static class AdaptedResult implements IRestClientResult {
 
-	    @XmlAttribute
+	    @XmlElement
 	    String objectType;
 	    
 	    @XmlAnyElement
@@ -77,8 +78,6 @@ public class RestClientResponse implements IRestClientResult {
 		}
 
 	    public AdaptedResult(Element node) {
-	    	if(node.hasAttribute("objectType"))
-        	objectType = node.getAttribute("objectType");
         	nodesToMap(node.getChildNodes());
 		}
 
@@ -100,7 +99,13 @@ public class RestClientResponse implements IRestClientResult {
 	        for(int i = 0; i < nodes.getLength(); i++) 
 	        {
 	        	Node node = nodes.item(i);
-	            map.put(node.getLocalName(), isTextNode(node) ? node.getTextContent() : node);
+	        	if(node instanceof Element)
+	        	{
+		        	if(node.getLocalName().equals("objectType"))
+			    		objectType = node.getTextContent();
+		        	else
+		        		map.put(node.getLocalName(), isTextNode(node) ? node.getTextContent() : node);
+	        	}
 	        }
 	    }
 		    

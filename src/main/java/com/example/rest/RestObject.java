@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 import com.example.rest.annotations.RestDatabaseIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,7 +13,7 @@ public class RestObject {
 
 	private static List<Class<?>> usedClasses = new ArrayList<Class<?>>();
 
-	@XmlAttribute
+	@XmlElement
 	private String objectType;
 	
 	public RestObject()

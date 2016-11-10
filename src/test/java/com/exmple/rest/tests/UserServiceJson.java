@@ -58,8 +58,8 @@ public class UserServiceJson {
 	private RestClientUser add() {
 		
 		RestClientUser newUser = new RestClientUser();
-		newUser.setFirstName(UUID.randomUUID().toString());
-		newUser.setLastName(UUID.randomUUID().toString());
+		newUser.setFirstName("first" + UUID.randomUUID().toString());
+		newUser.setLastName("last" + UUID.randomUUID().toString());
 		
 		Map<String, Object> requestData = new HashMap<String, Object>();
 		requestData.put("user", newUser);
